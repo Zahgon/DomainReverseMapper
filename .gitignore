@@ -20,3 +20,8 @@ target/
 
 # shade-plugin ignore extra pom file
 drm-core/dependency-reduced-pom.xml
+
+.aider*
+logs/
+.commit0_scripts/
+.github/workflows/

@@ -3,6 +3,7 @@ package com.nitorcreations.scanners;
 import java.util.List;
 
 class AbstractScanner {
+
     final List<Class<?>> classes;
 
     AbstractScanner(final List<Class<?>> classes) {
@@ -10,27 +11,18 @@ class AbstractScanner {
     }
 
     boolean isDomainClass(final Class<?> clazz) {
-        return classes.contains(clazz);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     boolean isDomainClass(final String name) {
-        for (Class<?> clazz : classes) {
-            if (clazz.getName().equals(stripClassHeader(name))) {
-                return true;
-            }
-        }
-        return false;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     String stripClassHeader(final String fullToString) {
-        if (fullToString.startsWith("class ")) {
-            return convertFromAsmToComplete(fullToString.substring(6));
-        }
-        return convertFromAsmToComplete(fullToString);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     String convertFromAsmToComplete(String original) {
-        return original.replace('/', '.');
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
-
 }

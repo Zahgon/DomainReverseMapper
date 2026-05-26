@@ -2,7 +2,6 @@ package com.nitorcreations;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.SubTypesScanner;
-
 import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.List;
@@ -12,12 +11,7 @@ import java.util.stream.Collectors;
 class DomainClassFinder {
 
     public static List<Class<?>> findClasses(final List<String> packages, final URLClassLoader classLoader) {
-        return packages.stream()
-                .map(packageName -> getClasses(classLoader, packageName))
-                .flatMap(Collection::stream)
-                .filter(DomainClassFinder::isNotPackageInfo)
-                .filter(DomainClassFinder::isNotAnonymousClass)
-                .collect(Collectors.toList());
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static boolean isNotPackageInfo(Class<?> clazz) {

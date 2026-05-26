@@ -3,19 +3,20 @@ package com.nitorcreations.presenters;
 import com.nitorcreations.domain.DomainObject;
 import com.nitorcreations.domain.Edge;
 import com.nitorcreations.domain.EdgeType;
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.joining;
 
 public class DefaultGraphvizPresenter implements Presenter {
 
     public static final String DOMAIN_DECLARATION = "digraph domain {\n";
+
     public static final String DEFAULTS = "  edge [ fontsize = 11 ];\n  node [ shape=box style=rounded ];";
+
     private static final String INHERITANCE_STYLE = "arrowhead=empty color=slategray";
+
     private final AtomicInteger count = new AtomicInteger();
 
     private Object getEdgeDescription(Edge edge) {
@@ -41,47 +42,28 @@ public class DefaultGraphvizPresenter implements Presenter {
     }
 
     private String describeInheritance(List<Edge> edges) {
-        return edges.stream()
-                .filter(e -> e.type == EdgeType.EXTENDS)
-                .map(this::describeInheritance)
-                .collect(joining());
+        return edges.stream().filter(e -> e.type == EdgeType.EXTENDS).map(this::describeInheritance).collect(joining());
     }
 
     private String describeInheritance(Edge hierarchyEdge) {
-        return String.format("  %s -> %s [%s];\n",
-                hierarchyEdge.source.className,
-                hierarchyEdge.target.className,
-                INHERITANCE_STYLE);
+        return String.format("  %s -> %s [%s];\n", hierarchyEdge.source.className, hierarchyEdge.target.className, INHERITANCE_STYLE);
     }
 
     private String describePackages(List<DomainObject> domainObjects) {
         count.set(0);
-        return domainObjects.stream()
-                .collect(groupingBy(DomainObject::getPackageName))
-                .entrySet().stream()
-                .map(this::describePackage)
-                .collect(joining());
+        return domainObjects.stream().collect(groupingBy(DomainObject::getPackageName)).entrySet().stream().map(this::describePackage).collect(joining());
     }
 
     private String describePackage(Map.Entry<String, List<DomainObject>> entry) {
-        return String.format("  subgraph cluster_%s {\n    label = \"%s\";\n%s  }\n",
-                count.getAndIncrement(),
-                entry.getKey(),
-                listDomainObjects(entry.getValue()));
+        return String.format("  subgraph cluster_%s {\n    label = \"%s\";\n%s  }\n", count.getAndIncrement(), entry.getKey(), listDomainObjects(entry.getValue()));
     }
 
     private String listDomainObjects(List<DomainObject> domainObjects) {
-        return domainObjects.stream()
-                .map(domainObject -> "    " + domainObject.className + "\n")
-                .distinct()
-                .collect(joining());
+        return domainObjects.stream().map(domainObject -> "    " + domainObject.className + "\n").distinct().collect(joining());
     }
 
     private String describeCompositions(List<Edge> edges) {
-        return edges.stream()
-                .filter(e -> e.type != EdgeType.EXTENDS)
-                .map(this::describeComposition)
-                .collect(joining());
+        return edges.stream().filter(e -> e.type != EdgeType.EXTENDS).map(this::describeComposition).collect(joining());
     }
 
     private String describeComposition(Edge compositionEdge) {
@@ -94,10 +76,6 @@ public class DefaultGraphvizPresenter implements Presenter {
 
     @Override
     public String describe(List<DomainObject> domainObjects, List<Edge> edges) {
-        return DOMAIN_DECLARATION + DEFAULTS + "\n"
-                + describePackages(domainObjects)
-                + describeCompositions(edges)
-                + describeInheritance(edges)
-                + "}";
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

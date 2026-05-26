@@ -7,8 +7,11 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 public class Edge {
 
     public final DomainObject source;
+
     public final DomainObject target;
+
     public final EdgeType type;
+
     public final Direction direction;
 
     public Edge(DomainObject source, DomainObject target, EdgeType type, Direction direction) {
@@ -24,16 +27,16 @@ public class Edge {
 
     @Override
     public final int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public final boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.toString(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

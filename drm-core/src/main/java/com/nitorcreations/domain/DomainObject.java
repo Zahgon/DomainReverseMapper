@@ -7,7 +7,9 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 public class DomainObject {
 
     public final String packageName;
+
     public final String className;
+
     public final String description;
 
     public DomainObject(String packageName, String className, String description) {
@@ -25,21 +27,21 @@ public class DomainObject {
     }
 
     public String getPackageName() {
-        return packageName;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public int hashCode() {
-        return HashCodeBuilder.reflectionHashCode(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public boolean equals(Object obj) {
-        return EqualsBuilder.reflectionEquals(this, obj);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return ReflectionToStringBuilder.toString(this);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }

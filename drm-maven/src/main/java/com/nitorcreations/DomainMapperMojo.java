@@ -6,7 +6,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.*;
 import org.apache.maven.project.MavenProject;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,24 +18,19 @@ import java.util.List;
 
 @Mojo(name = "map", defaultPhase = LifecyclePhase.PROCESS_CLASSES, requiresDependencyResolution = ResolutionScope.COMPILE)
 public class DomainMapperMojo extends AbstractMojo {
+
     @Parameter(defaultValue = "${project.build.directory}", property = "outputDir", required = true)
     private File outputDirectory;
+
     @Component
     private MavenProject project;
+
     @Parameter(property = "map.packages", required = true)
     private List<String> packages;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        if (packages.isEmpty())
-            throw new MojoFailureException("No packages defined for scanning.");
-        try {
-            List<URL> projectClasspathList = getClasspathUrls();
-            DomainMapper mapper = DomainMapper.create(packages, new URLClassLoader(projectClasspathList.toArray(new URL[projectClasspathList.size()])));
-            Files.write(Paths.get(outputDirectory.getPath(), "domainmap.dot"), mapper.describeDomain().getBytes());
-        } catch (ClassNotFoundException | DependencyResolutionRequiredException | IOException e) {
-            throw new MojoExecutionException(e.getMessage(), e);
-        }
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @SuppressWarnings("unchecked")

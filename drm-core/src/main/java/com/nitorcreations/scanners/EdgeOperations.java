@@ -4,10 +4,8 @@ import com.google.common.collect.Lists;
 import com.nitorcreations.domain.DomainObject;
 import com.nitorcreations.domain.Edge;
 import com.nitorcreations.domain.EdgeType;
-
 import java.util.Collection;
 import java.util.List;
-
 import static com.nitorcreations.domain.Direction.BI_DIRECTIONAL;
 import static com.nitorcreations.domain.Direction.UNI_DIRECTIONAL;
 import static com.nitorcreations.domain.EdgeType.resolveEdgeType;
@@ -17,44 +15,21 @@ import static java.util.stream.Collectors.toList;
 public class EdgeOperations {
 
     public static Edge createEdge(Class<?> sourceClass, Class<?> field, EdgeType type, String name) {
-        DomainObject source = new DomainObject(sourceClass, name);
-        DomainObject target = new DomainObject(field);
-        return new Edge(source, target, type, UNI_DIRECTIONAL);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     public static List<Edge> mergeBiDirectionals(List<Edge> edges) {
-        Collection<List<Edge>> groupedEdges = groupEdges(edges);
-        List<Edge> uniDirectionals = takeSingleItemsGroups(groupedEdges);
-        List<Edge> biDirectionals = mergeNonSingleGroups(groupedEdges);
-        List<Edge> mergedEdges = Lists.newArrayList();
-        mergedEdges.addAll(uniDirectionals);
-        mergedEdges.addAll(biDirectionals);
-        return mergedEdges;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     private static List<Edge> takeSingleItemsGroups(Collection<List<Edge>> groupedEdges) {
-        return groupedEdges.stream()
-                .filter(edgeGroup -> edgeGroup.size() == 1)
-                .flatMap(Collection::stream)
-                .collect(toList());
+        return groupedEdges.stream().filter(edgeGroup -> edgeGroup.size() == 1).flatMap(Collection::stream).collect(toList());
     }
 
     private static List<Edge> mergeNonSingleGroups(Collection<List<Edge>> groupedEdges) {
-        List<List<List<Edge>>> edgeGroups = groupedEdges.stream()
-                .filter(edgeGroup -> edgeGroup.size() > 1)
-                .map(EdgeOperations::groupBySource)
-                .collect(toList());
-        List<Edge> multiReferenceUniDirectionals = edgeGroups.stream()
-                .filter(sourceGroups -> sourceGroups.size() == 1)
-                .flatMap(Collection::stream)
-                .flatMap(Collection::stream)
-                .collect(toList());
-        List<Edge> biDirectionals = edgeGroups.stream()
-                .filter(sourceGroups -> sourceGroups.size() == 2)
-                .map(EdgeOperations.Tuple::createPairs)
-                .flatMap(Collection::stream)
-                .map(EdgeOperations::mergeEdges)
-                .collect(toList());
+        List<List<List<Edge>>> edgeGroups = groupedEdges.stream().filter(edgeGroup -> edgeGroup.size() > 1).map(EdgeOperations::groupBySource).collect(toList());
+        List<Edge> multiReferenceUniDirectionals = edgeGroups.stream().filter(sourceGroups -> sourceGroups.size() == 1).flatMap(Collection::stream).flatMap(Collection::stream).collect(toList());
+        List<Edge> biDirectionals = edgeGroups.stream().filter(sourceGroups -> sourceGroups.size() == 2).map(EdgeOperations.Tuple::createPairs).flatMap(Collection::stream).map(EdgeOperations::mergeEdges).collect(toList());
         List<Edge> newEdges = Lists.newArrayList();
         newEdges.addAll(multiReferenceUniDirectionals);
         newEdges.addAll(biDirectionals);
@@ -62,15 +37,11 @@ public class EdgeOperations {
     }
 
     private static Collection<List<Edge>> groupEdges(List<Edge> edges) {
-        return edges.stream()
-                .collect(groupingBy(EdgeOperations::sameSourceAndTarget))
-                .values();
+        return edges.stream().collect(groupingBy(EdgeOperations::sameSourceAndTarget)).values();
     }
 
     private static List<List<Edge>> groupBySource(List<Edge> edges) {
-        return Lists.newArrayList(edges.stream()
-                .collect(groupingBy(edge -> edge.source.className))
-                .values());
+        return Lists.newArrayList(edges.stream().collect(groupingBy(edge -> edge.source.className)).values());
     }
 
     private static Edge mergeEdges(Tuple<Edge, Edge> edgePair) {
@@ -93,29 +64,23 @@ public class EdgeOperations {
 
         @Override
         public int hashCode() {
-            return left.hashCode() + right.hashCode();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         @Override
         public boolean equals(Object obj) {
-            if (obj == null) {
-                return false;
-            } else if (obj instanceof UnorderedTuple) {
-                UnorderedTuple<?, ?> tuple = (UnorderedTuple) obj;
-                return this.left.equals(tuple.left) && this.right.equals(tuple.right) ||
-                        this.left.equals(tuple.right) && this.right.equals(tuple.left);
-            } else {
-                return false;
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public static <X, Y> UnorderedTuple<X, Y> of(X source, Y target) {
-            return new UnorderedTuple<>(source, target);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
     private static class Tuple<X, Y> {
+
         protected final X left;
+
         protected final Y right;
 
         public Tuple(X left, Y right) {
@@ -124,9 +89,7 @@ public class EdgeOperations {
         }
 
         public static <T> List<Tuple<T, T>> createPairs(List<List<T>> listOfTwoGroups) {
-            List<T> a = listOfTwoGroups.get(0);
-            List<T> b = listOfTwoGroups.get(1);
-            return makePairs(a, b);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         private static <T> List<Tuple<T, T>> makePairs(List<T> a, List<T> b) {
